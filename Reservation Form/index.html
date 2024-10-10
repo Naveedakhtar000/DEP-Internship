@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        form {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .success {
+            color: green;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Reservation Form</h1>
+
+    <form id="reservationForm">
+        <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name">
+            <div id="nameError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <div id="emailError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="date">Reservation Date:</label>
+            <input type="date" id="date" name="date">
+            <div id="dateError" class="error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="guests">Number of Guests:</label>
+            <input type="number" id="guests" name="guests" min="1" max="10">
+            <div id="guestsError" class="error"></div>
+        </div>
+
+        <button type="submit">Reserve</button>
+    </form>
+
+    <script>
+        // Real-time validation on input change
+        document.getElementById("reservationForm").addEventListener("input", function (event) {
+            validateForm(event.target);
+        });
+
+        // Validate form before submission
+        document.getElementById("reservationForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            let valid = true;
+
+            if (!validateName()) valid = false;
+            if (!validateEmail()) valid = false;
+            if (!validateDate()) valid = false;
+            if (!validateGuests()) valid = false;
+
+            if (valid) {
+                alert("Reservation successful!");
+            }
+        });
+
+        // Name validation
+        function validateName() {
+            const name = document.getElementById("name");
+            const error = document.getElementById("nameError");
+            if (name.value.trim() === "") {
+                error.textContent = "Full name is required.";
+                return false;
+            }
+            error.textContent = "";
+            return true;
+        }
+
+        // Email validation
+        function validateEmail() {
+            const email = document.getElementById("email");
+            const error = document.getElementById("emailError");
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email.value)) {
+                error.textContent = "Please enter a valid email address.";
+                return false;
+            }
+            error.textContent = "";
+            return true;
+        }
+
+        // Date validation
+        function validateDate() {
+            const date = document.getElementById("date");
+            const error = document.getElementById("dateError");
+            if (date.value === "") {
+                error.textContent = "Please select a reservation date.";
+                return false;
+            }
+            error.textContent = "";
+            return true;
+        }
+
+        // Number of guests validation
+        function validateGuests() {
+            const guests = document.getElementById("guests");
+            const error = document.getElementById("guestsError");
+            if (guests.value < 1 || guests.value > 10) {
+                error.textContent = "Please enter a number of guests between 1 and 10.";
+                return false;
+            }
+            error.textContent = "";
+            return true;
+        }
+
+        // Real-time validation
+        function validateForm(input) {
+            switch (input.id) {
+                case "name":
+                    validateName();
+                    break;
+                case "email":
+                    validateEmail();
+                    break;
+                case "date":
+                    validateDate();
+                    break;
+                case "guests":
+                    validateGuests();
+                    break;
+            }
+        }
+    </script>
+
+</body>
+</html>
