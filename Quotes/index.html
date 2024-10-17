@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        /* CSS styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .quote-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #quote {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        #author {
+            font-size: 14px;
+            color: gray;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quote-container">
+        <h1>Random Quote Generator</h1>
+        <div id="quote-box">
+            <p id="quote">Click the button to get a new quote!</p>
+            <p id="author"></p>
+        </div>
+        <button id="new-quote">New Quote</button>
+    </div>
+
+    <script>
+        // JavaScript functionality
+
+        // Array of quotes with authors
+        const quotes = [
+            { quote: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+            { quote: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
+            { quote: "Keep your face always toward the sunshine—and shadows will fall behind you.", author: "Walt Whitman" },
+            { quote: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
+            { quote: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" }
+        ];
+
+        // Function to get a random quote
+        function getRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            return quotes[randomIndex];
+        }
+
+        // Function to display the random quote
+        function displayQuote() {
+            const randomQuote = getRandomQuote();
+            document.getElementById('quote').textContent = randomQuote.quote;
+            document.getElementById('author').textContent = randomQuote.author;
+        }
+
+        // When the button is clicked, show a new quote
+        document.getElementById('new-quote').addEventListener('click', displayQuote);
+    </script>
+
+</body>
+</html>
